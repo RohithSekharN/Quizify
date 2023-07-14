@@ -1,6 +1,6 @@
-# quizify
+# Quizify
 
-A new Flutter project.
+Quizify is a dynamic and engaging mobile application designed to test your knowledge and challenge your intellect with a wide range of trivia questions.
 
 ## Getting Started
 
