@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 
+//import 'question.dart';
+import 'quizbrain.dart';
+
+QuizBrain quizBrain = QuizBrain();
+
 void main() => runApp(const Quizify());
 
 class Quizify extends StatelessWidget {
@@ -38,15 +43,15 @@ class _QuizPageState extends State<QuizPage> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        const Expanded(
+        Expanded(
           flex: 5,
           child: Padding(
-            padding: EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                'This is where the question text will go.',
+                quizBrain.getQuestionText(),
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 25.0,
                   color: Colors.white,
                 ),
@@ -66,6 +71,13 @@ class _QuizPageState extends State<QuizPage> {
                 ),
                 onPressed: () {
                   // The user picked true.
+                  bool correctAnswer = quizBrain.getCorrectAns();
+                  if (correctAnswer == true) {
+                    print('The user got it right.');
+                  } else {
+                    print('The user got it wrong.');
+                  }
+                  quizBrain.nextQuestion();
                   setState(() {
                     scoreKeeper.add(const Icon(
                       Icons.check,
@@ -91,6 +103,13 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 // The user picked false.
+                bool correctAnswer = quizBrain.getCorrectAns();
+                if (correctAnswer == false) {
+                  print('The user got it right.');
+                } else {
+                  print('The user got it wrong.');
+                }
+                quizBrain.nextQuestion();
                 setState(() {
                   scoreKeeper.add(const Icon(
                     Icons.close,
