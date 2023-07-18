@@ -37,6 +37,26 @@ class QuizPage extends StatefulWidget {
 class _QuizPageState extends State<QuizPage> {
   List<Icon> scoreKeeper = [];
 
+  void checkAnswer(bool userPickedAnswer) {
+    bool correctAnswer = quizBrain.getCorrectAns();
+    if (userPickedAnswer == correctAnswer) {
+      setState(() {
+        scoreKeeper.add(const Icon(
+          Icons.check,
+          color: Colors.green,
+        ));
+      });
+    } else {
+      setState(() {
+        scoreKeeper.add(const Icon(
+          Icons.close,
+          color: Colors.red,
+        ));
+      });
+    }
+    quizBrain.nextQuestion();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -71,19 +91,7 @@ class _QuizPageState extends State<QuizPage> {
                 ),
                 onPressed: () {
                   // The user picked true.
-                  bool correctAnswer = quizBrain.getCorrectAns();
-                  if (correctAnswer == true) {
-                    print('The user got it right.');
-                  } else {
-                    print('The user got it wrong.');
-                  }
-                  quizBrain.nextQuestion();
-                  setState(() {
-                    scoreKeeper.add(const Icon(
-                      Icons.check,
-                      color: Colors.green,
-                    ));
-                  });
+                  checkAnswer(true);
                 },
                 child: const Text(
                   'True',
@@ -103,19 +111,7 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 // The user picked false.
-                bool correctAnswer = quizBrain.getCorrectAns();
-                if (correctAnswer == false) {
-                  print('The user got it right.');
-                } else {
-                  print('The user got it wrong.');
-                }
-                quizBrain.nextQuestion();
-                setState(() {
-                  scoreKeeper.add(const Icon(
-                    Icons.close,
-                    color: Colors.red,
-                  ));
-                });
+                checkAnswer(false);
               },
               child: const Text(
                 'False',
